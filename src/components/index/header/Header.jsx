@@ -10,6 +10,8 @@ import "swiper/css";
 import "swiper/css/pagination";
 
 const Header = () => {
+  const authUser = localStorage.getItem("user");
+
   return (
     <header className="">
       <div className=" container mx-auto opacity-100 z-50">
@@ -36,9 +38,13 @@ const Header = () => {
               <FaRegUserCircle className=" size-7 cursor-pointer" />
             </div>
             <div>
-              <button className=" bg-slate-400 p-2 rounded-2xl text-zinc-100">
-                <a href="/login">Login</a>{" "}
-              </button>
+              {authUser ? (
+                <div className=" bg-slate-400 rounded-3xl p-2">wish list</div>
+              ) : (
+                <button className=" bg-slate-400 p-2 rounded-2xl text-zinc-100">
+                  <a href="/login">Login</a>{" "}
+                </button>
+              )}
             </div>
           </div>
         </div>

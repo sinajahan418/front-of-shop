@@ -2,22 +2,29 @@ import React, { useState } from "react";
 import { FaRegUserCircle } from "react-icons/fa";
 import { FaEye } from "react-icons/fa";
 import { FaEyeSlash } from "react-icons/fa";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const LoginForm = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [shoPass, setShoPass] = useState(false);
+  const navigate= useNavigate()
 
   const handelLogin = async () => {
     const user = { email, password };
-    const res = await fetch("", {
+    const res = await fetch("/api/signin", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
       body: JSON.stringify(user),
     });
+    const data= await res.json()
+    if (res.status === 200) {
+        alert("login successfuly")
+        localStorage.setItem("user" , JSON.stringify(data))
+        navigate("/")
+    }
     console.log(res);
   };
   return (
