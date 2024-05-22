@@ -3,15 +3,16 @@ import { FaRegUserCircle } from "react-icons/fa";
 import { FaEye } from "react-icons/fa";
 import { FaEyeSlash } from "react-icons/fa";
 import { Link, useNavigate } from "react-router-dom";
+import swal from "sweetalert";
 
 const LoginForm = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [shoPass, setShoPass] = useState(false);
-  const navigate= useNavigate()
+  const navigate = useNavigate();
 
   const handelLogin = async () => {
-    const user = { email, password };
+    const user = { name: email, password };
     const res = await fetch("/api/signin", {
       method: "POST",
       headers: {
@@ -19,11 +20,15 @@ const LoginForm = () => {
       },
       body: JSON.stringify(user),
     });
-    const data= await res.json()
     if (res.status === 200) {
-        alert("login successfuly")
-        localStorage.setItem("user" , JSON.stringify(data))
-        navigate("/")
+      localStorage.setItem("user", JSON.stringify(user));
+      swal({
+        title: "sing up beach",
+        icon: "success",
+        buttons: "god job",
+      }).then(() => {
+        navigate("/p-admin");
+      });
     }
     console.log(res);
   };

@@ -5,7 +5,7 @@ import { FaEye } from "react-icons/fa";
 import { FaEyeSlash } from "react-icons/fa";
 import loginIcon from "../../assest/signin.gif";
 import imageTobase64 from "../../hellpers/ImgTobeas64";
-// import SummaryApi from "../../common";
+
 
 const SingUp = () => {
   const [shoPass, setShoPass] = useState(false);
@@ -39,7 +39,6 @@ const SingUp = () => {
     });
     const data = await res.json();
     if (res.status === 201) {
-      alert("sing up  dungeon meshi")
       localStorage.setItem("user", JSON.stringify(data));
       navigat("/");
     }

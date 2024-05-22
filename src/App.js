@@ -1,22 +1,41 @@
 // import Footer from "./components/index/footer/Footer";
-import { useNavigate } from "react-router-dom";
-import Header from "./components/index/header/Header";
-import Home from "./components/index/home/Home";
+import { Outlet, useNavigate } from "react-router-dom";
+// import Home from "./components/index/home/Home";
 import { useEffect } from "react";
+import swal from "sweetalert";
+import { useAuthUser } from "./store/AuthUser";
+import Footer from "./components/index/footer/Footer";
+import Header from "./components/index/header/Header";
+import { ContextProvaider } from "./context/AuthContext";
 
 function App() {
-  const navigate = useNavigate()
-  useEffect(()=>{
-     const user = localStorage.getItem("user")
-  if (!user) {
-    navigate("/sing-up")
-     console.log("adasdsfsf");
-  }
-  },[])
- 
+  const navigate = useNavigate();
+  const { setAuthUser } = useAuthUser();
+  useEffect(() => {
+    const isUserEsist = async () => {
+      const userStoreg = JSON.parse(localStorage.getItem("user"));
+      const user = await fetch("/api/user-details");
+      if (!user.status === 200) {
+        navigate("/login");
+      }
+      if (user.status === 200) {
+
+        swal({ title: "login successfuly", icon: "success" });
+        setAuthUser(userStoreg);
+      }
+    };
+    isUserEsist();
+  }, []);
+
   return (
     <>
-     <Home/>
+      <ContextProvaider>
+        <Header />
+        <main className="min-h-[calc(100vh-120px)] pt-16">
+          <Outlet/>
+        </main>
+        <Footer />
+      </ContextProvaider>
     </>
   );
 }
