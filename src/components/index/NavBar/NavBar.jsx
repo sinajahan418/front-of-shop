@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import swal from "sweetalert";
 import { Link, useNavigate } from "react-router-dom";
 import { LuLogOut } from "react-icons/lu";
@@ -6,10 +6,25 @@ import Logo from "../logo";
 import { IoSearch } from "react-icons/io5";
 import { FaRegUserCircle } from "react-icons/fa";
 import { GiShoppingCart } from "react-icons/gi";
+import { useProductCount } from "../../../store/useProductCount";
 
 const NavBar = () => {
   const authUser = localStorage.getItem("user");
   const navegate = useNavigate();
+  const [search, setSearch] = useState("");
+
+  const [count, setCount] = useState(0);
+  const fetchProductCount = async () => {
+    const res = await fetch("/api/countAddToCartProduct");
+    const data = await res.json();
+    setCount(data?.data);
+    console.log(data.data);
+    console.log(count);
+  };
+  useEffect(() => {
+    fetchProductCount();
+  }, []);
+
   const handleLogout = () => {
     swal({
       title: "you want to live",
@@ -22,6 +37,16 @@ const NavBar = () => {
       }
     });
   };
+  const serchHaneler = (e)=> {
+    const {value} = e.target
+    console.log("ddddddddddddd" , value.length);
+    setSearch(value)
+    if (value) {
+       navegate(`/search?q=${value}`)
+    }else{
+      navegate("/search")
+    }
+  }
   const bgWhite = "http://localhost:3000";
   const bgAdmin = "http://localhost:3000/p-admin";
   const myURL = document.URL;
@@ -43,6 +68,8 @@ const NavBar = () => {
           <input
             className=" bg-slate-300 rounded-lg bottom-0 outline-0"
             type="text"
+            value={search}
+            onChange={serchHaneler}
             placeholder="search"
           />{" "}
           <IoSearch className=" size-7" />
@@ -53,7 +80,7 @@ const NavBar = () => {
               <GiShoppingCart className=" size-7 cursor-pointer" />
             </span>
             <div className=" text-xs bg-black text-zinc-50 rounded-full h-4 w-5 text-center">
-              <p>18</p>
+              <p>{count?.count}</p>
             </div>
           </div>
           <div>

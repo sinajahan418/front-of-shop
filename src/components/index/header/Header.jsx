@@ -1,7 +1,10 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Pagination, Autoplay } from "swiper/modules";
+import img1 from "../../../assest/banner/img1.webp"
+import img2 from "../../../assest/banner/img5.webp"
+import img3 from "../../../assest/banner/img2_mobile.webp"
 // Import Swiper styles
 
 import "swiper/css";
@@ -25,19 +28,19 @@ const Header = () => {
         <SwiperSlide>
           <img
             className=" relative z-0"
-            src="https://set-coffee.com/wp-content/uploads/2023/12/slide.jpg"
+            src={img1}
             alt="Slide"
           />
         </SwiperSlide>
         <SwiperSlide>
           <img
-            src="https://set-coffee.com/wp-content/uploads/2023/12/slide.jpg"
+            src={img2}
             alt="Slide"
           />
         </SwiperSlide>
         <SwiperSlide>
           <img
-            src="https://set-coffee.com/wp-content/uploads/2023/12/slide.jpg"
+            src={img3}
             alt="Slide"
           />
         </SwiperSlide>

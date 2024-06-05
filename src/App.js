@@ -7,6 +7,7 @@ import { useAuthUser } from "./store/AuthUser";
 import Footer from "./components/index/footer/Footer";
 import Header from "./components/index/header/Header";
 import { ContextProvaider } from "./context/AuthContext";
+import Home from "./pages/home/Home";
 
 function App() {
   const navigate = useNavigate();
@@ -20,7 +21,6 @@ function App() {
       }
       if (user.status === 200) {
 
-        swal({ title: "login successfuly", icon: "success" });
         setAuthUser(userStoreg);
       }
     };
@@ -33,6 +33,7 @@ function App() {
         <Header />
         <main className="min-h-[calc(100vh-120px)] pt-16">
           <Outlet/>
+          <Home/>
         </main>
         <Footer />
       </ContextProvaider>

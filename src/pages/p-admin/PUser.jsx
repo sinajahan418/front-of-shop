@@ -35,8 +35,8 @@ const PUser = () => {
         style={{ height: { windowHeight } }}
         className=" text-slate-600  flex justify-start items-start "
       >
-        <div className=" flex relative z-50 pt-[7rem] w-[30%]">
-          <section className="w-[40%]">
+        <div className=" flex relative z-50 pt-[7rem] w-[20%]">
+          <section className="w-[20%]">
             <UserSaide></UserSaide>
           </section>
         </div>
